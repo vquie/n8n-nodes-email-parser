@@ -1,4 +1,6 @@
 import {
+	IBinaryKeyData,
+	IDataObject,
 	IExecuteFunctions,
 	INodeExecutionData,
 	INodeProperties,
@@ -286,8 +288,8 @@ export class EmailParser implements INodeType {
 				}
 
 				const parsed = await simpleParser(rawEmailBuffer);
-				const outputJson = { ...item.json };
-				const outputBinary = { ...(item.binary ?? {}) };
+				const outputJson: IDataObject = {};
+				const outputBinary: IBinaryKeyData = {};
 				const attachments = [];
 
 				for (const [attachmentIndex, attachment] of parsed.attachments.entries()) {
