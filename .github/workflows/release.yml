@@ -27,6 +27,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Set package version from tag
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME}"
+          if [[ "${TAG_VERSION}" == v* ]]; then
+            TAG_VERSION="${TAG_VERSION#v}"
+          fi
+          npm pkg set version="$TAG_VERSION"
+
       - name: Verify package version
         run: |
           PACKAGE_VERSION="$(node -p "require('./package.json').version")"
